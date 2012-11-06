@@ -1,0 +1,455 @@
+#quiz {
+	width: 600px;
+	height: 760px;
+	position: relative;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11px;
+	line-height: 15px;
+	margin: 0px;
+	margin-right: 0px;
+	padding: 0px;
+	}
+
+/* ======= SPINNING WHEEL ========================== */
+/* this is here to cover up the quiz briefly while   */
+/* the page loads. stltoday template is pretty heavy */
+
+#quiz .spinningWheel {
+	width: 600px;
+	height: 610px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+	background-color: #eee;
+	background-image: url(http://images.stltoday.com/mds/00003409/content/spinner.gif);
+	background-position: center center;
+	background-repeat: no-repeat;
+	z-index: 1000;
+	}
+
+#quiz .spinningWheel span {
+	display: block;
+	margin: 225px auto;
+	}
+
+/* ======= QUESTION SLIDES BASIC LAYOUT ============ */
+
+#quiz .questions {
+	width: 600px;
+	height: 600px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	margin: 0px;
+	padding: 0px;
+	}
+
+#quiz .question {
+	position: absolute;
+	top: 370px;
+	height: 56px;
+	left: 0;
+	vertical-align: bottom;
+	width: 600px;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 20px;
+	margin: 0px;
+	padding: 0px;
+	}
+
+/* ======= ANSWER CHOICES ============ */
+
+#quiz .answers {
+	position: absolute;
+	top: 442px;
+	left: 0px;
+	width: 350px;
+	margin: 0px;
+	padding: 0px;
+	}
+
+
+#quiz .answers .answerLine {
+	display: block;
+	height: 33px;
+	line-height: 33px;
+	font-size: 14px;
+	vertical-align: middle;
+	padding-left: 5px;
+	margin-bottom: 12px;
+	font-weight: normal;
+	background-color: #dfdfdf;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	}
+
+#quiz .answers .hover {
+	background: #333; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#111111'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#111)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #555,  #111); /* for firefox 3.6+ */ 
+	color: white;
+/*	font-weight: bold; */
+	cursor: hand;
+	cursor: pointer;
+	}
+
+/* this rule was added to override rapidcityjournal CSS conflict */
+#quiz .answers .hover label, #quiz .answers .answered label, #quiz .answers .correct label {
+	color: white;
+}
+
+#quiz .answers .hover label, #quiz .answers .hover input {
+	cursor: hand;
+	cursor: pointer;
+	}
+
+#quiz .answers .answerLine input {
+	vertical-align: middle;
+	margin: 0 6px 0 0;
+	padding: 0;
+	background: transparent;
+	background-color: transparent;
+	filter: none;
+	}
+
+#quiz .answers .answerLine label {
+	margin: 0;
+	padding: 0;
+/* the following styles were added to override rapidcityjournal CSS conflict */
+	line-height: 33px;
+	font-size: 14px;
+	float: none;
+	display: inline;
+	text-align: left;
+
+	}
+
+#quiz .answers .answered {
+	color: white;
+/*	font-weight: bold; */
+	background: #333; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#111111'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#111)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #555,  #111); /* for firefox 3.6+ */ 
+	}
+
+#quiz .answers  .correct {
+/*	font-weight: bold; */
+	color: white;
+	background: #c00; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dd0000', endColorstr='#990000'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#d00), to(#900)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #d00,  #900); /* for firefox 3.6+ */ 
+	}
+
+/* ======= RESPONSE TEXT ============ */
+
+
+#quiz .response {
+	position: absolute;
+	top: 442px;
+	left: 380px;
+	width: 220px;
+	height: 120px;
+	display: none;
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
+	line-height: 18px;
+	}
+
+#quiz .response .answeredWrong, #quiz .response .answeredCorrect {
+	font-weight: bold;
+	text-transform: uppercase;
+	display: none;
+	color: #c00;
+	}
+
+/* ======= CONTINUE BUTTON ============ */
+
+#quiz #continueButton {
+	position: absolute;
+	top: 585px;
+	left: 380px;
+	width: 190px;
+	height: 20px;
+	vertical-align: middle;
+	padding: 5px 0 0 10px;
+	cursor: hand;
+	cursor: pointer;
+	font-weight: bold;
+	color: #700;
+	background: #ddd; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#aaaaaa'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#aaa)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #eee,  #aaa); /* for firefox 3.6+ */ 
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	}
+
+#quiz #continueButton:hover {
+	color: white;
+	background: #333; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#111111'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#111)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #555,  #111); /* for firefox 3.6+ */ 
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	}
+
+#quiz #continueButton .arrow {
+	float: right;
+	font-size: 30px;
+	margin-top: -4px;
+	margin-right: 15px;
+	}
+
+/* ======= QUESTION PHOTO(S) ============ */
+
+
+#quiz .questions .photos  {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	margin: 0px;
+	padding: 0px;
+	width: 600px;
+	height: 358px;
+
+	/* this is important to allow scrolling transitions on answer */
+	overflow: hidden;
+	}
+
+
+/* ======= QUESTIONS: MULTIPHOTO ============ */
+
+#quiz .multiphoto .photos img {
+	opacity: 0.9;
+	margin: 0px;
+	padding: 0px;
+	z-index: 800;
+	}
+
+#quiz .multiphoto .photos img.hover {
+	z-index: 1000;
+	border-top: 4px solid black;
+	border-bottom: 4px solid black;
+	opacity: 1;
+	cursor: hand;
+	cursor: pointer;
+	-moz-transform: scale(1.025);
+	-webkit-transform: scale(1.025);
+	-o-transform: scale(1.025);
+	transform: scale(1.025);
+	}
+
+#quiz .multiphoto .photos img.highlight {
+	border-top: 4px solid #c00;
+	border-bottom: 4px solid #c00;
+	opacity: 1;
+	-moz-transform: scale(1.025);
+	-webkit-transform: scale(1.025);
+	-o-transform: scale(1.025);
+	transform: scale(1.025);
+	}
+
+
+#quiz .multiphoto .photos img {
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: none;
+	border-top: 4px solid white;
+	border-bottom: 4px solid white;
+	}
+
+
+/* ======= QUESTIONS: MULTICHOICE and TRUEFALSE ============ */
+
+
+#quiz .multichoice .photos img, #quiz .truefalse .photos img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0px;
+	padding: 0px;
+	border-top: 4px solid white;
+	border-bottom: 4px solid white;
+
+	}
+
+#quiz .multichoice.transition-scroll .photos img, #quiz .truefalse.transition-scroll .photos img {
+	padding: 4px 0px;
+	border: none;
+
+	}
+
+/* ======= JUDGMENT / SCORING SCREEN ============ */
+
+
+#quiz #scoring {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	margin: 0px;
+	padding: 0px;
+	}
+
+#quiz #score {
+	display: block;
+	font-size: 64px;
+	line-height: 64px;
+	font-weight: bold;
+	color: #ccc;
+	margin: 15px 0px 0px 0px;
+	padding: 0px;
+	}
+
+#quiz #evaluation {
+	display: block;
+	font-family: Times, 'Times New Roman', serif;
+	font-size: 30px;
+	line-height: 30px;
+	font-style: italic;
+	margin-top: 15px;
+	}
+
+#quiz #response {
+	display: block;
+	font-size: 16px;
+	line-height: 24px;
+	font-weight: bold;
+	font-style: none;
+	margin: 25px 0px 15px 0px;
+	}
+
+#quiz #response a {
+	color: #c00;
+	text-decoration: underline;
+	}
+
+
+#quiz #response a:hover {
+	color: #300;
+	text-decoration: none;
+	}
+
+
+#quiz .playAgain {
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+#credits, #sources {
+	font-size: 9px;
+	width: 600px;
+	margin-right: 0px;
+	padding: 0px;
+	margin-top: 10px;
+	}
+
+.credits, .sources {
+	font-size: 9px;
+	margin-top: 10px;
+	padding: 0px;
+}
+
+
+
+/* ======= SHARING BUTTONS ============ */
+
+
+
+.quizShare {
+	display: block;
+	position: relative;
+	margin-top: 15px;
+}
+
+.twitterShare, .facebookShare {
+	font-family: tahoma, arial, sans-serif;
+	font-size: 13px;
+	height: 24px;
+	width: 162px;
+	border-radius: 12px;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.twitterShare {
+	background-color: #33ccff;
+}
+
+.facebookShare {
+	background-color: #3b5b99;
+}
+
+
+.twitterShare a, .facebookShare a {
+	display: block;
+	font-weight: bold;
+	height: 24px;
+	line-height: 24px;
+	width: 130px;
+	border-radius: 12px;
+	padding: 0px 0px 0px 32px;
+	text-decoration: none;
+	color: white;
+}
+
+.twitterShare a {
+	background-image: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+	text-shadow: 0 1px 1px #2288ee;  
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.20) 100%); /* FF3.6+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.20))); /* Chrome,Safari4+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* Chrome10+,Safari5.1+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* Opera 11.10+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* IE10+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* W3C */
+}
+
+.twitterShare a:hover {
+	text-decoration: none;
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -moz-linear-gradient(top,  rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.45)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -webkit-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -o-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -ms-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* W3C */
+	color: yellow;
+}
+
+.facebookShare a {
+	background-image: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+	text-shadow: 0 1px 1px #2a4a88;
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.20) 100%); /* FF3.6+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.20))); /* Chrome,Safari4+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* Chrome10+,Safari5.1+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* Opera 11.10+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* IE10+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* W3C */
+}
+
+.facebookShare a:hover {
+	text-decoration: none;
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -moz-linear-gradient(top,  rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.45)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -webkit-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -o-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -ms-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* W3C */
+	color: yellow;
+}
