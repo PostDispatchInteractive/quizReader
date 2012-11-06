@@ -1,16 +1,22 @@
+var judgmentImg = '';
+var quesNum = 0;
+var score = 0;
+var basePath = '';
+var scoringRangeSize = scoringRange.length;
+var quizUrl = document.URL;
+// HTML assets on STLtoday get a funky title that looks like this:
+// Html : The Political Gaffes Quiz : Stltoday!
+// So let's strip away the prefix and suffix.
+var quizTitle = document.title.split(' : ')[1];
+document.title = quizTitle;
+
+
+
 // jQUERY READY HANDLER
 // The script must be enclosed entirely within this handler because
 // stltoday.com uses .noConflict, which removes the $ variable.
 
 jQuery(document).ready(function($) {
-
-	var judgmentImg = '';
-	var quesNum = 0;
-	var score = 0;
-	var basePath = '';
-	var scoringRangeSize = scoringRange.length;
-	var quizTitle = document.title;
-	var quizUrl = document.URL;
 
 	$('#quiz .spinningWheel').remove();
 	$('#quiz .questions').hide();
@@ -18,7 +24,6 @@ jQuery(document).ready(function($) {
 
 	addEffects();
 	playQuiz();
-
 
 
 	// cycle through the quiz questions and add any bells/whistles needed for transitions
@@ -30,7 +35,7 @@ jQuery(document).ready(function($) {
 		for (i=0; i<totalQuestions; i++) {
 			imageNum = i;
 			if (i<10) { imageNum = '0'+imageNum; }
-			// newly implemented in quizMaker. Allows user to specify the image, rather than rely on a naming convention
+			// newly implemented in quizMaker. Allows user to specify the image, rather than rely on a naming convention.
 			// Dissolve is the NEW format. Transition-fade is old format. Support for both included.
 			if ( checkDissolve(i) || checkFade(i) ) {
 				// new format
@@ -444,7 +449,7 @@ jQuery(document).ready(function($) {
 
 	//		$('#quiz').children().remove();
 			$('.questions .photos img').show();
-			addTransitions();
+			addEffects();
 			quesNum = 0;
 			score = 0;
 			playQuiz();
