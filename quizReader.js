@@ -7,7 +7,7 @@ var quizUrl = document.URL;
 // HTML assets on STLtoday get a funky title that looks like this:
 // Html : The Political Gaffes Quiz : Stltoday!
 // So let's strip away the prefix and suffix.
-var quizTitle = document.title.split(' : ')[1];
+var quizTitle = document.title.split(' : ')[0];
 document.title = quizTitle;
 
 

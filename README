@@ -25,6 +25,10 @@ These HTML classes are optional for each question, and enable special effects:
 
 CHANGELOG
 
+2013-11-11-- v0.2g
+* Fixed page title cleaning routine since TownNews updated the HTML asset template.
+
+
 2012-11-05-- v0.2f
 * Added code to clean the page title (remove extra bits added by the STLtoday HTML asset template).
 * Fixed the "Play Again" button, which was broken in v0.2e.
