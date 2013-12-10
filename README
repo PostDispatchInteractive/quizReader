@@ -2,8 +2,8 @@
 Script Name: HTML Quiz Reader
 Description: A Javascript/jQuery reader to power HTML quizzes in the new PD quiz format
      Author: Josh Renaud
-    Version: 0.2f
-       Date: 2012-11-05
+    Version: 0.2h
+       Date: 2013-12-09
 ---------------------------------------------------------------------------------------
 
 This script expects some JS variables to be included in the individual quiz's HTML file.
@@ -24,6 +24,12 @@ These HTML classes are optional for each question, and enable special effects:
 ---------------------------------------------------------------------------------------
 
 CHANGELOG
+
+
+2013-12-09-- v0.2h
+* Added new media queries to CSS for mobile/iOS template.
+* Slightly changed handling of answered questions in quizReader.js so that I can hide answer buttons on iOS once a questions has been answered.
+
 
 2013-11-11-- v0.2g
 * Fixed page title cleaning routine since TownNews updated the HTML asset template.

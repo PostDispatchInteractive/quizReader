@@ -1,3 +1,4 @@
+
 #quiz {
 	width: 600px;
 	height: 760px;
@@ -102,7 +103,7 @@
 	}
 
 /* this rule was added to override rapidcityjournal CSS conflict */
-#quiz .answers .hover label, #quiz .answers .answered label, #quiz .answers .correct label {
+#quiz .answers .hover label, #quiz .answers .userAnswer label, #quiz .answers .correct label {
 	color: white;
 }
 
@@ -132,7 +133,7 @@
 
 	}
 
-#quiz .answers .answered {
+#quiz .answers .userAnswer {
 	color: white;
 /*	font-weight: bold; */
 	background: #333; /* for non-css3 browsers */
@@ -452,4 +453,102 @@
 	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -ms-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
 	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* W3C */
 	color: yellow;
+}
+
+
+
+
+@media only screen and (max-width: 480px)  {
+	#quiz {
+		width: 295px;
+	}
+	#quiz .spinningWheel {
+		width: 295px;
+	}
+	#quiz .questions {
+		width: 295px;
+	}
+	#quiz .question {
+		margin-top: 10px;
+		width: 295px;
+		height: auto;
+		position: relative;
+		font-size: 12px;
+		line-height: 16px;
+		top: 0px;
+	}
+
+	#quiz .questions .photos  {
+		width: 295px;
+		height: 176px;
+		position: relative;
+	}
+	#quiz .questions .photos img  {
+		width: 100%;
+		height: 100%;
+	}
+
+	#quiz .multiphoto .photos img {
+		width: 25%;
+		height: auto;
+	}
+
+	#quiz .answers {
+		margin-top: 10px;
+		position: relative;
+		top: 0px;
+		width: 295px;
+	}
+
+	#quiz .answered .question, #quiz .answered .answers {
+		display: none;
+	}
+
+	#quiz .response {
+		position: relative;
+		top: 0px;
+		left: 0px;
+		width: 295px;
+		height: auto;
+		font-size: 12px;
+		line-height: 16px;
+		margin-top: 10px;
+	}
+
+
+	#quiz #continueButton {
+		position: relative;
+		top: 300px;
+		left: 0px;
+		width: 295px;
+		height: 20px;
+	}
+
+	#scoring {
+		width: 295px;
+	}
+	#scoring .photos img {
+		width: 100%;
+	} 
+
+	#quiz #score {
+		font-size: 40px;
+		line-height: 40px;
+	}
+
+	#quiz #evaluation {
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	#quiz #response, #quiz #response p {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	.quizShare div {
+		margin-top: 10px;
+	}
+
+
 }

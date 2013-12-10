@@ -290,9 +290,10 @@ jQuery(document).ready(function($) {
 	// GENERATE THE ANSWER SCREEN, THEN FIGURE OUT HOW TO PROCEED
 
 	function answerAndScore(userChoice) {
+		$('#question' + quesNum).addClass('answered');
 		$thePhoto = $('#question' + quesNum + ' .photos img');
 		$('input#ques' + quesNum + 'ans' + userChoice).parent().removeClass('hover');
-		$('input#ques' + quesNum + 'ans' + userChoice).parent().addClass('answered');
+		$('input#ques' + quesNum + 'ans' + userChoice).parent().addClass('userAnswer');
 		$('#question' + quesNum + ' input').attr('disabled','disabled');
 		$('#question' + quesNum + ' input.correct').parent().addClass('correct');
 		$('#question' + quesNum + ' input.wrong').parent().css('opacity','0.3');
@@ -366,7 +367,7 @@ jQuery(document).ready(function($) {
 
 	function continueButton(userChoice) {
 		$('<div id="continueButton">NEXT QUESTION <span class="arrow">&rarr;</span></div>').appendTo('#quiz');
-	//	alert('Answered '+quesNum+' out of '+totalQuestions);
+	//	alert('userAnswer '+quesNum+' out of '+totalQuestions);
 		$('#continueButton').click( function(){ 
 			$('#continueButton').unbind().remove();
 	//		$('#question'+quesNum+' .photos').flash().remove();
@@ -393,7 +394,8 @@ jQuery(document).ready(function($) {
 
 	// CLEAN UP BETWEEN SLIDES
 	function cleanUpSlide(userChoice) {
-		$('input#ques' + quesNum + 'ans' + userChoice).parent().removeClass('answered');
+		$('#question' + quesNum).removeClass('answered');
+		$('input#ques' + quesNum + 'ans' + userChoice).parent().removeClass('userAnswer');
 		$('#question' + quesNum + ' input').removeAttr('disabled');
 		$('#question' + quesNum + ' input').attr('checked', false);
 		$('#question' + quesNum + ' input.correct').parent().removeClass('correct');
