@@ -1,15 +1,16 @@
+@import url('http://fonts.googleapis.com/css?family=Roboto+Slab:700,400');
 
 #quiz {
 	width: 600px;
-	height: 760px;
+	height: 720px;
 	position: relative;
-	font-family: Verdana, Arial, sans-serif;
+	font-family: 'Roboto Slab', sans-serif;
 	font-size: 11px;
 	line-height: 15px;
 	margin: 0px;
 	margin-right: 0px;
 	padding: 0px;
-	}
+}
 
 /* ======= SPINNING WHEEL ========================== */
 /* this is here to cover up the quiz briefly while   */
@@ -32,16 +33,168 @@
 	background-position: center center;
 	background-repeat: no-repeat;
 	z-index: 1000;
-	}
+}
 
 #quiz .spinningWheel span {
 	display: block;
 	margin: 225px auto;
-	}
+}
+
+
+/* ======= BUTTON STYLES ============ */
+
+
+/* COMMON BUTTON STYLES */
+#playButton, #quiz .answers .answerLine, #continueButton, .quizShare div {
+	-webkit-box-shadow: 0px 1px 0px 0px rgba(255,255,255,0.4)inset, 1px 0px 0px 0px rgba(255,255,255,0.4)inset, -1px 0px 0px 0px rgba(255,255,255,0.4)inset;
+	   -moz-box-shadow: 0px 1px 0px 0px rgba(255,255,255,0.4)inset, 1px 0px 0px 0px rgba(255,255,255,0.4)inset, -1px 0px 0px 0px rgba(255,255,255,0.4)inset;
+	        box-shadow: 0px 1px 0px 0px rgba(255,255,255,0.4)inset, 1px 0px 0px 0px rgba(255,255,255,0.4)inset, -1px 0px 0px 0px rgba(255,255,255,0.4)inset;
+	-webkit-border-radius: 6px;
+	   -moz-border-radius: 6px;
+	        border-radius: 6px;
+	display: inline-block;
+	font-family: 'Roboto Slab';
+}
+
+.no-touch #playButton:hover, .no-touch #quiz .answers .answerLine:hover, .no-touch #continueButton:hover, .no-touch .quizShare div:hover {
+	-webkit-box-shadow: 0px 1px 0px 0px rgba(255,255,255,0.4)inset, 0px -1px 0px 0px rgba(255,255,255,0.2)inset;
+	   -moz-box-shadow: 0px 1px 0px 0px rgba(255,255,255,0.4)inset, 0px -1px 0px 0px rgba(255,255,255,0.2)inset;
+	        box-shadow: 0px 1px 0px 0px rgba(255,255,255,0.4)inset, 0px -1px 0px 0px rgba(255,255,255,0.2)inset;
+	-webkit-border-radius: 6px;
+	   -moz-border-radius: 6px;
+	        border-radius: 6px;
+	cursor: hand;
+	cursor: pointer;
+}
+
+#playButton:active, #quiz .answers .answerLine:active, #continueButton:active, .quizShare div:active {
+	background-image: none;
+	-webkit-box-shadow: 0px 0px 8px 2px rgba(41,41,41,0.5)inset, 0px 0px 2px 2px rgba(20,20,20,0.3)inset;
+	   -moz-box-shadow: 0px 0px 8px 2px rgba(41,41,41,0.5)inset, 0px 0px 2px 2px rgba(20,20,20,0.3)inset;
+	        box-shadow: 0px 0px 8px 2px rgba(41,41,41,0.5)inset, 0px 0px 2px 2px rgba(20,20,20,0.3)inset;
+	border: solid 1px rgba(150,150,150,1);
+	-webkit-border-radius: 6px;
+	   -moz-border-radius: 6px;
+	        border-radius: 6px;
+}
+
+
+/* INDIVIDUAL BUTTON STYLES */
+#playButton, #continueButton, .quizShare div { 
+	position: absolute;
+	top: 440px;
+	font-weight: 900;
+	font-size: 30px;
+	line-height: 40px;
+	text-align: center;
+	color: white;
+	width: 210px;
+	text-transform: uppercase;
+	background: #127FD2;
+	background: rgba(18,127,210,1);
+	background-image: -webkit-linear-gradient(top, rgba(54,168,234,1) 0%,rgba(18,127,210,1) 100%);
+	background-image:    -moz-linear-gradient(top, rgba(54,168,234,1) 0%,rgba(18,127,210,1) 100%);
+	background-image:      -o-linear-gradient(top, rgba(54,168,234,1) 0%,rgba(18,127,210,1) 100%);
+	background-image:         linear-gradient(top, rgba(54,168,234,1) 0%,rgba(18,127,210,1) 100%);
+	background-image:     -ms-linear-gradient(top, #36A8EA 0%, #127FD2 100%);
+	border: solid 1px rgba(3,94,163,1);
+	text-shadow: 0px 1px 1px rgba(0,0,0,0.33)
+}
+
+.no-touch #playButton:hover, .no-touch #continueButton:hover, .no-touch .quizShare div:hover {
+	background-image: -webkit-linear-gradient(top, rgba(47,144,213,1) 0%,rgba(3,81,183,1) 100%);
+	background-image:    -moz-linear-gradient(top, rgba(47,144,213,1) 0%,rgba(3,81,183,1) 100%);
+	background-image:      -o-linear-gradient(top, rgba(47,144,213,1) 0%,rgba(3,81,183,1) 100%);
+	background-image:         linear-gradient(top, rgba(47,144,213,1) 0%,rgba(3,81,183,1) 100%);
+	background-image:     -ms-linear-gradient(top, #2F90D5 0%, #0351B7 100%);
+	border: solid 1px rgba(0,52,129,1);
+}
+
+#playButton:active, #continueButton:active, .quizShare div:active {
+	border: solid 1px rgba(0,70,131,1);
+}
+
+#quiz .answers .answerLine, .no-touch #quiz .answered .answers .answerLine:hover {
+	display: block;
+	font-size: 14px;
+	line-height: 33px;
+	vertical-align: middle;
+	padding-left: 5px;
+	margin-bottom: 12px;
+	background: #dfdfdf;
+	background: rgba(220,220,220,1);
+	background-image: -webkit-linear-gradient(top, rgba(220,220,220,1) 0%,rgba(223,223,223,1) 100%);
+	background-image:    -moz-linear-gradient(top, rgba(220,220,220,1) 0%,rgba(223,223,223,1) 100%);
+	background-image:      -o-linear-gradient(top, rgba(220,220,220,1) 0%,rgba(223,223,223,1) 100%);
+	background-image:         linear-gradient(top, rgba(220,220,220,1) 0%,rgba(223,223,223,1) 100%);
+	background-image:     -ms-linear-gradient(top, #dcdcdc 0%, #dfdfdf 100%);
+	border: solid 1px rgba(190,190,190,1);
+}
+
+.no-touch #quiz .answers .answerLine:hover {
+	background: #333; /* for non-css3 browsers */
+	background-image: -webkit-linear-gradient(top, rgba(85,85,85,1) 0%,rgba(40,40,40,1) 100%);
+	background-image:    -moz-linear-gradient(top, rgba(85,85,85,1) 0%,rgba(40,40,40,1) 100%);
+	background-image:      -o-linear-gradient(top, rgba(85,85,85,1) 0%,rgba(40,40,40,1) 100%);
+	background-image:         linear-gradient(top, rgba(85,85,85,1) 0%,rgba(40,40,40,1) 100%);
+	background-image:     -ms-linear-gradient(top, #555555 0%, #111111 100%);
+	border: solid 1px rgba(25,25,25,1);
+	color: white;
+}
+
+#quiz .answers .answerLine:active  {
+	border: solid 1px rgba(150,150,150,1);
+}
+
+
+#quiz .answers .answerLine.userAnswer, .no-touch #quiz .answers .answerLine.userAnswer:hover {
+	background: #333; /* for non-css3 browsers */
+	background-image: -webkit-linear-gradient(top, rgba(85,85,85,1) 0%,rgba(40,40,40,1) 100%);
+	background-image:    -moz-linear-gradient(top, rgba(85,85,85,1) 0%,rgba(40,40,40,1) 100%);
+	background-image:      -o-linear-gradient(top, rgba(85,85,85,1) 0%,rgba(40,40,40,1) 100%);
+	background-image:         linear-gradient(top, rgba(85,85,85,1) 0%,rgba(40,40,40,1) 100%);
+	background-image:     -ms-linear-gradient(top, #555555 0%, #111111 100%);
+	border: solid 1px rgba(25,25,25,1);
+}
+
+#quiz .answers .answerLine.correct, .no-touch #quiz .answers .answerLine.correct:hover {
+	background: #c00; /* for non-css3 browsers */
+	background-image: -webkit-linear-gradient(top, rgba(221,0,0,1) 0%,rgba(153,0,0,1) 100%);
+	background-image:    -moz-linear-gradient(top, rgba(221,0,0,1) 0%,rgba(153,0,0,1) 100%);
+	background-image:      -o-linear-gradient(top, rgba(221,0,0,1) 0%,rgba(153,0,0,1) 100%);
+	background-image:         linear-gradient(top, rgba(221,0,0,1) 0%,rgba(153,0,0,1) 100%);
+	background-image:     -ms-linear-gradient(top, #dd0000 0%, #990000 100%);
+	border: solid 1px rgba(100,0,0,1);
+}
+
+
+#continueButton {
+	position: absolute;
+	top: 585px;
+	left: 380px;
+	width: 190px;
+	height: 24px;
+	padding: 5px 0 0 10px;
+	font-weight: bold;
+	line-height: 21px;
+	font-size: 14px;
+	text-align: left;
+}
+
+
+#quiz #continueButton .arrow {
+	float: right;
+	font-size: 30px;
+	margin-top: -4px;
+	margin-right: 15px;
+}
+
+
+
 
 /* ======= QUESTION SLIDES BASIC LAYOUT ============ */
 
-#quiz .questions {
+#quiz .questions, #quiz .cover {
 	width: 600px;
 	height: 600px;
 	position: absolute;
@@ -49,9 +202,9 @@
 	left: 0px;
 	margin: 0px;
 	padding: 0px;
-	}
+}
 
-#quiz .question {
+#quiz .question, #quiz .cover p {
 	position: absolute;
 	top: 370px;
 	height: 56px;
@@ -63,7 +216,18 @@
 	line-height: 20px;
 	margin: 0px;
 	padding: 0px;
-	}
+}
+
+
+#quiz .cover p {
+	font-weight: bold;
+}
+
+.warning {
+	color: #c00;
+	text-transform: uppercase;
+}
+
 
 /* ======= ANSWER CHOICES ============ */
 
@@ -74,33 +238,8 @@
 	width: 350px;
 	margin: 0px;
 	padding: 0px;
-	}
+}
 
-
-#quiz .answers .answerLine {
-	display: block;
-	height: 33px;
-	line-height: 33px;
-	font-size: 14px;
-	vertical-align: middle;
-	padding-left: 5px;
-	margin-bottom: 12px;
-	font-weight: normal;
-	background-color: #dfdfdf;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	}
-
-#quiz .answers .hover {
-	background: #333; /* for non-css3 browsers */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#111111'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#111)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #555,  #111); /* for firefox 3.6+ */ 
-	color: white;
-/*	font-weight: bold; */
-	cursor: hand;
-	cursor: pointer;
-	}
 
 /* this rule was added to override rapidcityjournal CSS conflict */
 #quiz .answers .hover label, #quiz .answers .userAnswer label, #quiz .answers .correct label {
@@ -110,7 +249,7 @@
 #quiz .answers .hover label, #quiz .answers .hover input {
 	cursor: hand;
 	cursor: pointer;
-	}
+}
 
 #quiz .answers .answerLine input {
 	vertical-align: middle;
@@ -118,38 +257,21 @@
 	padding: 0;
 	background: transparent;
 	background-color: transparent;
-	filter: none;
-	}
+}
 
 #quiz .answers .answerLine label {
 	margin: 0;
 	padding: 0;
+/* the following style was added to override plugins.css */
+	font-family: 'Roboto Slab';
 /* the following styles were added to override rapidcityjournal CSS conflict */
 	line-height: 33px;
 	font-size: 14px;
 	float: none;
 	display: inline;
 	text-align: left;
+}
 
-	}
-
-#quiz .answers .userAnswer {
-	color: white;
-/*	font-weight: bold; */
-	background: #333; /* for non-css3 browsers */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#111111'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#111)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #555,  #111); /* for firefox 3.6+ */ 
-	}
-
-#quiz .answers  .correct {
-/*	font-weight: bold; */
-	color: white;
-	background: #c00; /* for non-css3 browsers */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dd0000', endColorstr='#990000'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(#d00), to(#900)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #d00,  #900); /* for firefox 3.6+ */ 
-	}
 
 /* ======= RESPONSE TEXT ============ */
 
@@ -165,53 +287,15 @@
 	padding: 0px;
 	font-size: 14px;
 	line-height: 18px;
-	}
+}
 
 #quiz .response .answeredWrong, #quiz .response .answeredCorrect {
 	font-weight: bold;
 	text-transform: uppercase;
 	display: none;
 	color: #c00;
-	}
+}
 
-/* ======= CONTINUE BUTTON ============ */
-
-#quiz #continueButton {
-	position: absolute;
-	top: 585px;
-	left: 380px;
-	width: 190px;
-	height: 20px;
-	vertical-align: middle;
-	padding: 5px 0 0 10px;
-	cursor: hand;
-	cursor: pointer;
-	font-weight: bold;
-	color: #700;
-	background: #ddd; /* for non-css3 browsers */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#aaaaaa'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#aaa)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #eee,  #aaa); /* for firefox 3.6+ */ 
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	}
-
-#quiz #continueButton:hover {
-	color: white;
-	background: #333; /* for non-css3 browsers */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#111111'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#111)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #555,  #111); /* for firefox 3.6+ */ 
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	}
-
-#quiz #continueButton .arrow {
-	float: right;
-	font-size: 30px;
-	margin-top: -4px;
-	margin-right: 15px;
-	}
 
 /* ======= QUESTION PHOTO(S) ============ */
 
@@ -227,7 +311,7 @@
 
 	/* this is important to allow scrolling transitions on answer */
 	overflow: hidden;
-	}
+}
 
 
 /* ======= QUESTIONS: MULTIPHOTO ============ */
@@ -237,7 +321,7 @@
 	margin: 0px;
 	padding: 0px;
 	z-index: 800;
-	}
+}
 
 #quiz .multiphoto .photos img.hover {
 	z-index: 1000;
@@ -250,7 +334,7 @@
 	-webkit-transform: scale(1.025);
 	-o-transform: scale(1.025);
 	transform: scale(1.025);
-	}
+}
 
 #quiz .multiphoto .photos img.highlight {
 	border-top: 4px solid #c00;
@@ -260,7 +344,7 @@
 	-webkit-transform: scale(1.025);
 	-o-transform: scale(1.025);
 	transform: scale(1.025);
-	}
+}
 
 
 #quiz .multiphoto .photos img {
@@ -270,7 +354,7 @@
 	border: none;
 	border-top: 4px solid white;
 	border-bottom: 4px solid white;
-	}
+}
 
 
 /* ======= QUESTIONS: MULTICHOICE and TRUEFALSE ============ */
@@ -284,14 +368,12 @@
 	padding: 0px;
 	border-top: 4px solid white;
 	border-bottom: 4px solid white;
-
-	}
+}
 
 #quiz .multichoice.transition-scroll .photos img, #quiz .truefalse.transition-scroll .photos img {
 	padding: 4px 0px;
 	border: none;
-
-	}
+}
 
 /* ======= JUDGMENT / SCORING SCREEN ============ */
 
@@ -302,7 +384,7 @@
 	left: 0px;
 	margin: 0px;
 	padding: 0px;
-	}
+}
 
 #quiz #score {
 	display: block;
@@ -312,16 +394,16 @@
 	color: #ccc;
 	margin: 15px 0px 0px 0px;
 	padding: 0px;
-	}
+}
 
 #quiz #evaluation {
 	display: block;
-	font-family: Times, 'Times New Roman', serif;
+	font-family: 'Didot','Times New Roman', Times, serif;
 	font-size: 30px;
 	line-height: 30px;
 	font-style: italic;
 	margin-top: 15px;
-	}
+}
 
 #quiz #response {
 	display: block;
@@ -330,18 +412,18 @@
 	font-weight: bold;
 	font-style: none;
 	margin: 25px 0px 15px 0px;
-	}
+}
 
 #quiz #response a {
 	color: #c00;
 	text-decoration: underline;
-	}
+}
 
 
-#quiz #response a:hover {
+.no-touch #quiz #response a:hover {
 	color: #300;
 	text-decoration: none;
-	}
+}
 
 
 #quiz .playAgain {
@@ -356,7 +438,8 @@
 	margin-right: 0px;
 	padding: 0px;
 	margin-top: 10px;
-	}
+	font-family: 'Roboto Slab';
+}
 
 .credits, .sources {
 	font-size: 9px;
@@ -376,99 +459,56 @@
 	margin-top: 15px;
 }
 
-.twitterShare, .facebookShare {
-	font-family: tahoma, arial, sans-serif;
-	font-size: 13px;
-	height: 24px;
-	width: 162px;
-	border-radius: 12px;
-	display: inline-block;
+.quizShare div {
+	font-size: 14px;
+	line-height: 27px;
+	height: 26px;
+	margin-top: 0px;
+	text-decoration: none;
+	top: 0px;
+	position: relative;
 	margin-right: 10px;
 }
 
-.twitterShare {
-	background-color: #33ccff;
-}
-
-.facebookShare {
-	background-color: #3b5b99;
-}
-
-
-.twitterShare a, .facebookShare a {
-	display: block;
-	font-weight: bold;
-	height: 24px;
-	line-height: 24px;
-	width: 130px;
-	border-radius: 12px;
-	padding: 0px 0px 0px 32px;
-	text-decoration: none;
+.quizShare div a {
 	color: white;
+	font-weight: bold;
 }
 
-.twitterShare a {
-	background-image: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png);
-	background-position: 2px 2px;
-	background-repeat: no-repeat;
-	text-shadow: 0 1px 1px #2288ee;  
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.20) 100%); /* FF3.6+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.20))); /* Chrome,Safari4+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* Chrome10+,Safari5.1+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* Opera 11.10+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* IE10+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* W3C */
-}
-
-.twitterShare a:hover {
+.no-touch .quizShare div a:hover {
 	text-decoration: none;
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -moz-linear-gradient(top,  rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.45)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -webkit-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -o-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, -ms-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/twitter-white.png) no-repeat 2px 2px, linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* W3C */
-	color: yellow;
 }
 
-.facebookShare a {
-	background-image: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png);
-	background-position: 2px 2px;
-	background-repeat: no-repeat;
-	text-shadow: 0 1px 1px #2a4a88;
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.20) 100%); /* FF3.6+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.20))); /* Chrome,Safari4+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* Chrome10+,Safari5.1+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* Opera 11.10+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* IE10+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 100%); /* W3C */
-}
+.quizShare div.facebookShare {
+	background: #3B5998;
+	background-image: -webkit-linear-gradient(top, #1e62d0 0%, #3B5998 100%);
+	background-image:    -moz-linear-gradient(top, #1e62d0 0%, #3B5998 100%);
+	background-image:      -o-linear-gradient(top, #1e62d0 0%, #3B5998 100%);
+	background-image:         linear-gradient(top, #1e62d0 0%, #3B5998 100%);
+	background-image:     -ms-linear-gradient(top, #1e62d0 0%, #3B5998 100%);
+} 
 
-.facebookShare a:hover {
-	text-decoration: none;
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -moz-linear-gradient(top,  rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.45)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -webkit-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -o-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, -ms-linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-	background: url(http://images.stltoday.com/mds/00003409/content/facebook-white.png) no-repeat 2px 2px, linear-gradient(top,  rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%); /* W3C */
-	color: yellow;
-}
+.no-touch .quizShare div.facebookShare:hover {
+	background: #0f3FB2;
+	background-image: -webkit-linear-gradient(top, #0f3FB2 0%, #344D84 100%);
+	background-image:    -moz-linear-gradient(top, #0f3FB2 0%, #344D84 100%);
+	background-image:      -o-linear-gradient(top, #0f3FB2 0%, #344D84 100%);
+	background-image:         linear-gradient(top, #0f3FB2 0%, #344D84 100%);
+	background-image:     -ms-linear-gradient(top, #0f3FB2 0%, #344D84 100%);
+} 
 
 
-
-
-@media only screen and (max-width: 480px)  {
+@media only screen and (max-device-width: 480px)  {
 	#quiz {
 		width: 295px;
 	}
 	#quiz .spinningWheel {
 		width: 295px;
 	}
-	#quiz .questions {
+	#quiz .questions, #quiz .cover {
 		width: 295px;
 	}
-	#quiz .question {
+	#quiz .question, #quiz .cover p {
 		margin-top: 10px;
 		width: 295px;
 		height: auto;
@@ -483,7 +523,13 @@
 		height: 176px;
 		position: relative;
 	}
-	#quiz .questions .photos img  {
+
+	#quiz .cover img {
+		width: 100%;
+		height: auto;
+	}
+
+	#quiz .questions .photos img {
 		width: 100%;
 		height: 100%;
 	}
@@ -516,12 +562,18 @@
 	}
 
 
+	#quiz #playButton {
+		position: relative;
+		top: 250px;
+	} 
+
 	#quiz #continueButton {
 		position: relative;
 		top: 300px;
 		left: 0px;
-		width: 295px;
-		height: 20px;
+		/* there's 10px of padding on the left, so width should be 10px less */
+		width: 285px;
+		height: 24px;
 	}
 
 	#scoring {

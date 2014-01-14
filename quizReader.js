@@ -1,4 +1,31 @@
+// ===========================================================================
+// ==  
+// ==  TO DO LIST
+// ==  
+// ==  * Add support for multiple images in effect-dissolve
+// ==    - This would involve adding the images as extra photos instead of background images.
+// ==    - May not be necessary, but would help the Oscars quiz.
+// ==  
+// ==  * Fix background-images on mobile
+// ==    - Allow it to take pixel offsets or percentages?
+// ==    - Make it work on question load and on user answer, similar to sound effects. 
+// ==  
+// ==  * Fix sound support on scoring screen. The sounds don't play.
+// ==  
+// ==  * Beef up effect-scroll.
+// ==    - Allow it to take pixel offsets or percentages?
+// ==    - Make it work on question load and on user answer, similar to sound effects. 
+// ==  
+// ==  * Refactor references to userChoice.
+// ==    - Instead of passing a number, pass the actual jQuery object for the AnswerLine
+// ==  
+// ===========================================================================
+
+
+
+
 var judgmentImg = '';
+var totalQues = 0;
 var quesNum = 0;
 var score = 0;
 var basePath = '';
@@ -9,8 +36,13 @@ var quizUrl = document.URL;
 // So let's strip away the prefix and suffix.
 var quizTitle = document.title.split(' : ')[0];
 document.title = quizTitle;
+var hasAudio = checkAudio();
 
-
+// Add "no-touch" class if this is not a mobile device.
+// This is necessary so I can keep :hover classes from appearing on mobile devices.
+if ( !('ontouchstart' in document.documentElement) ) {
+	document.documentElement.className += ' no-touch';
+}
 
 // jQUERY READY HANDLER
 // The script must be enclosed entirely within this handler because
@@ -18,12 +50,28 @@ document.title = quizTitle;
 
 jQuery(document).ready(function($) {
 
+	// No need to hard-code length of quiz. Just count the questions.
+	totalQues = $('#quiz .questions').length;
 	$('#quiz .spinningWheel').remove();
 	$('#quiz .questions').hide();
 	$('#quiz #scoring').hide();
 
 	addEffects();
-	playQuiz();
+
+	// Is it a newer quiz with a cover?
+	if ( $('.cover').length ) {
+		// do stuff
+		$('#playButton').click(function(){
+			$('#playButton').unbind('click').hide();
+			$('.cover').hide();
+			playQuiz();
+		});
+	}
+	// If it's an older quiz, go straight to play.
+	else {
+		playQuiz();
+	}
+
 
 
 	// cycle through the quiz questions and add any bells/whistles needed for transitions
@@ -32,35 +80,44 @@ jQuery(document).ready(function($) {
 //		var splitSeparator = 'Mardi-Gras-masks';
 		var splitSeparator = 'content';
 
-		for (i=0; i<totalQuestions; i++) {
+		for (i=0; i<totalQues; i++) {
+			var $thisQuestion = $('#question' + i);
 			imageNum = i;
 			if (i<10) { imageNum = '0'+imageNum; }
-			// newly implemented in quizMaker. Allows user to specify the image, rather than rely on a naming convention.
-			// Dissolve is the NEW format. Transition-fade is old format. Support for both included.
-			if ( checkDissolve(i) || checkFade(i) ) {
-				// new format
-				if ( checkDissolve(i) ) { 
-					var theUrl = $('#question'+i+' .photos').attr('data');
-				}
-				// old format
-				else if ( checkFade(i) ) {
-					var imageUrl = $('#question'+i+' .photos img:first-child')[0].src.split(splitSeparator).shift();
-					var imageExt = $('#question'+i+' .photos img:first-child')[0].src.split('.').pop();
-					var theUrl = imageUrl + splitSeparator + '/' + imageNum + 'b-fade.' + imageExt;
-				}
-				$('#question' + i + ' .photos').css('background-image', 'url(' + theUrl + ')');
-				$('#question' + i + ' .photos').css('background-position', '0px 4px');
-				$('#question' + i + ' .photos').css('background-repeat', 'no-repeat');
+			// Effect-dissolve adds a background image when the quiz loads.
+			// After each question, the foreground image fades out, revealing the background.
+			// The quiz creator can specify the background image in quizMaker
+			if ( checkDissolve( $thisQuestion ) ) {
+				var theUrl = $thisQuestion.children('.photos').attr('data');
+				$thisQuestion.children('.photos').css('background-image', 'url(' + theUrl + ')');
+				$thisQuestion.children('.photos').css('background-position', '0px 4px');
+				$thisQuestion.children('.photos').css('background-repeat', 'no-repeat');
 
 				// the lower opacity with MultiPhoto questions doesn't work well with a background image
-				if ( $('#question' + i).hasClass('multiphoto') ) {
-					$('#question' + i + '.multiphoto .photos img').css({ opacity: 1 });
+				if ( $thisQuestion.hasClass('multiphoto') ) {
+					$thisQuestion.find('.multiphoto .photos img').css({ opacity: 1 });
 				}
 			}
 
-			// The following Effects still are not implemented in quizMaker. Have to be added manually to a quiz.
-			if ( checkScroll(i) ) {
-				$thePhoto = $('#question' + i + ' .photos img');
+			// Effect-sound allows for sounds to be played "before" and/or "after" a question.
+			if ( checkSound( $thisQuestion ) ) {
+				$thisQuestion.children('.sounds').hide();
+				// check for <audio> support. 
+				if ( !hasAudio ) {
+					$('.cover p').html('It looks like your browser doesn\'t support the sound effects used in this quiz. Please consider <a target="_blank" href="http://browsehappy.com/">upgrading your browser</a>.');
+				}
+				else {
+				}
+			}
+
+			// The following Effects still are not implemented in quizMaker. 
+			// Have to be added manually to a quiz.
+
+			// Transition-scroll allows a foreground image to be positioned then
+			// scrolled to a different position after the question is answered.
+			// Used only in Mardi Gras masks game and Bilbo-Weatherbird quiz
+			if ( checkScroll( $thisQuestion) ) {
+				$thePhoto = $thisQuestion.find('.photos img');
 
 				// grab any offsets specified in HTML
 				var xScrollFrom = $('#question' + i).attr('xScrollFrom');
@@ -80,43 +137,47 @@ jQuery(document).ready(function($) {
 					});
 				}
 			}
-			if ( checkBg(i) ) {
-				$('#question' + i).show();
-				var imageUrl = $('#question' + i + ' .photos img:first-child')[0].src.split(splitSeparator).shift();
+			// transition-bg just adds a background-image. 
+			// Used only in the Mardi Gras masks game.
+			if ( checkBg( $thisQuestion ) ) {
+				$thisQuestion.show();
+				var imageUrl = $thisQuestion.find('.photos img:first-child')[0].src.split(splitSeparator).shift();
 				var theUrl = imageUrl + splitSeparator + '/' + imageNum + 'b-fade.jpg';
-				$('#question' + i + ' .photos').css('background-image', 'url(' + theUrl + ')');
-				$('#question' + i + ' .photos').css('background-position', '0px 4px');
-				$('#question' + i + ' .photos').css('background-repeat', 'no-repeat');
-				$('#question' + i).hide();
+				$thisQuestion.children('.photos').css('background-image', 'url(' + theUrl + ')');
+				$thisQuestion.children('.photos').css('background-position', '0px 4px');
+				$thisQuestion.children('.photos').css('background-repeat', 'no-repeat');
+				$thisQuestion.hide();
 			}
 		}
 	}
 
-	// NEW - implemented in quizMaker
-	function checkDissolve(i) {
-		return $('#question' + i).hasClass('effect-dissolve');
+	// NEW - not yet implemented in quizMaker
+	function checkSound($thisQuestion) {
+		return $thisQuestion.hasClass('effect-sound');
+	}
+
+	// implemented in quizMaker
+	function checkDissolve($thisQuestion) {
+		return $thisQuestion.hasClass('effect-dissolve');
 	}
 
 	// legacy
-	function checkFade(i) {
-		return $('#question' + i).hasClass('transition-fade');
-	}
-
-	function checkScroll(i) {
-		return $('#question' + i).hasClass('transition-scroll');
+	function checkScroll($thisQuestion) {
+		return $thisQuestion.hasClass('transition-scroll');
 	} 
 
-	function checkBg(i) {
-		return $('#question' + i).hasClass('transition-bg');
+	function checkBg($thisQuestion) {
+		return $thisQuestion.hasClass('transition-bg');
 	}
 
 
 	// determine which type of quiz question we have, then use the appropriate Hover and Click handlers
 
 	function playQuiz() {
-		$('#question' + quesNum).show();
-		var hasMultiPhoto = $('#question' + quesNum).hasClass('multiphoto');
-		var hasMultiChoice = $('#question' + quesNum).hasClass('multichoice');
+		var $thisQuestion = $('#question' + quesNum);
+		$thisQuestion.show();
+		var hasMultiPhoto = $thisQuestion.hasClass('multiphoto');
+		var hasMultiChoice = $thisQuestion.hasClass('multichoice');
 
 		if ( hasMultiPhoto ) {
 			randomizeMultiPhoto();
@@ -138,6 +199,17 @@ jQuery(document).ready(function($) {
 			multiChoiceHover();
 			multiChoiceClick();
 		}
+		// Play "before" sound, if there is one
+		if ( checkSound($thisQuestion) && hasAudio ) {
+			var $beforeSound = $thisQuestion.find('.sounds .before');
+			// is there a "before" sound?
+			if ( $beforeSound.length ) {
+				// The jQuery wrapper doesn't know about play(). We have to invoke
+				// on the native dom element. get(0) grabs that native element.
+//				$beforeSound.get(0).currentTime = 0;
+				$beforeSound.get(0).play();
+			}
+		} 
 	}
 
 
@@ -290,29 +362,30 @@ jQuery(document).ready(function($) {
 	// GENERATE THE ANSWER SCREEN, THEN FIGURE OUT HOW TO PROCEED
 
 	function answerAndScore(userChoice) {
-		$('#question' + quesNum).addClass('answered');
-		$thePhoto = $('#question' + quesNum + ' .photos img');
+		var $thisQuestion = $('#question' + quesNum);
+		$thisQuestion.addClass('answered');
+		$thePhoto = $thisQuestion.find('.photos img');
 		$('input#ques' + quesNum + 'ans' + userChoice).parent().removeClass('hover');
 		$('input#ques' + quesNum + 'ans' + userChoice).parent().addClass('userAnswer');
-		$('#question' + quesNum + ' input').attr('disabled','disabled');
-		$('#question' + quesNum + ' input.correct').parent().addClass('correct');
-		$('#question' + quesNum + ' input.wrong').parent().css('opacity','0.3');
+		$thisQuestion.find('input').attr('disabled','disabled');
+		$thisQuestion.find('input.correct').parent().addClass('correct');
+		$thisQuestion.find('input.wrong').parent().css('opacity','0.3');
 
-		$('#question' + quesNum + ' .response').show();
+		$thisQuestion.children('.response').show();
 
-		// does this question need a Fade transition?
-		if (checkDissolve(quesNum) || checkFade(quesNum) ) {
+		// does this question need a Dissolve effect?
+		if (checkDissolve($thisQuestion) ) {
 			$thePhoto.fadeOut();
 		}
 
 		// does this question need a Scroll transition?
-		if (checkScroll(quesNum)) {
+		if (checkScroll($thisQuestion)) {
 			var theWidth  = $thePhoto.width();
 			var theHeight = $thePhoto.height();
 
 			// grab any offsets specified in HTML
-			var xScrollTo = $('#question' + quesNum).attr('xScrollTo');
-			var yScrollTo = $('#question' + quesNum).attr('yScrollTo');
+			var xScrollTo = $thisQuestion.attr('xScrollTo');
+			var yScrollTo = $thisQuestion.attr('yScrollTo');
 
 			// if for some reason there's no ScrollTo defined in HTML then fall back
 			// to finding dif between this image's height and normal width (600).
@@ -342,18 +415,28 @@ jQuery(document).ready(function($) {
 //			$thePhoto.scrollTop( $(this).height() );
 		}
 
+		// Does this question need a sound effect on answer?
+		if ( checkSound($thisQuestion) && hasAudio ) {
+			// is there an "after" sound?
+			if ( $thisQuestion.find('.sounds audio.after').length ) {
+				// The jQuery wrapper doesn't know about play(). We have to invoke
+				// on the native dom element. get(0) grabs that native element.
+				$thisQuestion.find('.sounds audio.after').get(0).play();
+			}
+		} 
+
 
 		// did they answer correctly?
 		if ( $('input#ques' + quesNum + 'ans' + userChoice).hasClass('correct') ) {
-			$('#question' + quesNum + ' .response .answeredCorrect').show();
+			$thisQuestion.find('.response .answeredCorrect').show();
 			score++;
 		}
 		else {
-			$('#question' + quesNum + ' .response .answeredWrong').show();
+			$thisQuestion.find('.response .answeredWrong').show();
 		}
 
 		// did they answer the last question? If so, judgment screen. If not, continue.
-		if (quesNum === totalQuestions-1) {
+		if (quesNum === totalQues-1) {
 			judgment(userChoice);
 		}
 		else {
@@ -366,13 +449,24 @@ jQuery(document).ready(function($) {
 	// CREATE THE CONTINUE BUTTON
 
 	function continueButton(userChoice) {
+		var $thisQuestion = $('#question' + quesNum);
 		$('<div id="continueButton">NEXT QUESTION <span class="arrow">&rarr;</span></div>').appendTo('#quiz');
-	//	alert('userAnswer '+quesNum+' out of '+totalQuestions);
 		$('#continueButton').click( function(){ 
 			$('#continueButton').unbind().remove();
-	//		$('#question'+quesNum+' .photos').flash().remove();
+			// If there's an "after" sound effect playing, we need to stop it.
+			if ( checkSound( $thisQuestion ) && hasAudio ) {
+				// is there an "after" sound?
+				var $afterSound = $thisQuestion.find('.sounds audio.after');
+				if ( $afterSound.length ) {
+					// The jQuery wrapper doesn't know about sound functions. 
+					// We have to invoke on the native dom element. get(0) grabs that.
+					// Also, there's no stop() function. Instead, we pause and reset the counter.
+					$afterSound.get(0).pause();
+//					$afterSound.get(0).currentTime = 0;
+				}
+			} 
 			cleanUpSlide(userChoice);
-			$('#question' + quesNum).hide();
+			$thisQuestion.hide();
 			quesNum++;
 			playQuiz();
 		});
@@ -414,16 +508,25 @@ jQuery(document).ready(function($) {
 		var encQuizUrl = encodeURIComponent(quizUrl);
 		var encQuizTitle = encodeURIComponent(quizTitle);
 
-		var fbShare = '<div class="facebookShare"><a href="https://www.facebook.com/sharer.php?u='+encQuizUrl+'" target="_blank">Share your score!</a></div>';
-		var twShare = '<div class="twitterShare"><a href="https://twitter.com/intent/tweet?source=tweetbutton&amp;text=I%20scored%20'+score+'%20out%20of%20'+totalQuestions+'%20on%20'+encQuizTitle+'!&amp;url='+encQuizUrl+'&amp;via=stltoday" target="_blank">Tweet your score!</a></div>';
+		var fbShare = '<div class="facebookShare"><a href="https://www.facebook.com/sharer.php?u='+encQuizUrl+'" target="_blank">Share on Facebook!</a></div>';
+		var twShare = '<div class="twitterShare"><a href="https://twitter.com/intent/tweet?source=tweetbutton&amp;text=I%20scored%20'+score+'%20out%20of%20'+totalQues+'%20on%20'+encQuizTitle+'!&amp;url='+encQuizUrl+'&amp;via=stltoday" target="_blank">Tweet your score!</a></div>';
 
 		$('#quiz #scoring').show();
-		$('<div id="score">' + score + ' out of ' + totalQuestions + '</div>').insertBefore('#response');
-		$('<div class="quizShare">' + twShare + fbShare + '</div>').insertBefore('#response');
+		$('<div id="score">' + score + ' out of ' + totalQues + '</div>').insertBefore('#response');
+		$('<div class="quizShare">' + fbShare + twShare + '</div>').insertBefore('#response');
+
+		if ( checkSound( $('#scoring')  ) && hasAudio ) {
+			// is there a "before" sound?
+			if ( $('#scoring').find('.sounds .before').length ) {
+				// The jQuery wrapper doesn't know about play(). We have to invoke
+				// on the native dom element. get(0) grabs that native element.
+				$('#scoring').find('.sounds .before').get(0).play();
+			}
+		} 
 
 		for (x=0; x<scoringRangeSize; x++) {
-	//	this line is for debugging
-	//	$('<p>your score: '+score+'&nbsp;&nbsp;&nbsp;'+x+'th range: '+scoringRange[x]+'</div>').appendTo('body');
+			// this line is for debugging
+			//$('<p>your score: '+score+'&nbsp;&nbsp;&nbsp;'+x+'th range: '+scoringRange[x]+'</div>').appendTo('body');
 			if (score >= scoringRange[x]) {
 				$('<div id="evaluation">' + scoringEvaluation[x] + '</div>').insertAfter('#score');
 				break;
@@ -492,3 +595,6 @@ jQuery(document).ready(function($) {
 });
 
 
+function checkAudio() {
+	return !!document.createElement('audio').canPlayType;
+}

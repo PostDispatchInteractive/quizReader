@@ -2,8 +2,8 @@
 Script Name: HTML Quiz Reader
 Description: A Javascript/jQuery reader to power HTML quizzes in the new PD quiz format
      Author: Josh Renaud
-    Version: 0.2h
-       Date: 2013-12-09
+    Version: 0.3
+       Date: 2014-01-13
 ---------------------------------------------------------------------------------------
 
 This script expects some JS variables to be included in the individual quiz's HTML file.
@@ -24,6 +24,21 @@ These HTML classes are optional for each question, and enable special effects:
 ---------------------------------------------------------------------------------------
 
 CHANGELOG
+
+
+2014-01-13-- v0.3
+Major new features:
+* Added support for sound effects in HTML5 browsers ("effect-sound" class).
+  + Sound effects can be played when a question is displayed, and/or when user answers
+  + A sound effect played on answer will be paused if the user immediately clicks "continue"
+* Added support for quiz "cover" and play button.
+  + This is necessary to keep sounds from playing immediately in office environments, etc.
+  + Old quizzes without cover/play button will continue to work just fine.
+* Revamped CSS code to use Roboto font and to create consistent, better-looking buttons.
+Tweaks:
+* Reader adds "no-touch" class on non-mobile platforms. (This helps hide :hover classes from mobile)
+* Further CSS improvements for mobile.
+* Instead of passing the variables i or quesNum to special effect functions such as checkSound(), now I am passing the jQuery object for a particular question. This allows me to pass non-questions as well, such as the jQuery object for #scoring. I also went throughout the script and replaced instances of $('#ques' + i) with a reference variable called $thisQuestion.
 
 
 2013-12-09-- v0.2h
