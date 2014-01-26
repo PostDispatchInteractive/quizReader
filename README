@@ -2,8 +2,8 @@
 Script Name: HTML Quiz Reader
 Description: A Javascript/jQuery reader to power HTML quizzes in the new PD quiz format
      Author: Josh Renaud
-    Version: 0.3
-       Date: 2014-01-13
+    Version: 0.3a
+       Date: 2014-01-25
 ---------------------------------------------------------------------------------------
 
 This script expects some JS variables to be included in the individual quiz's HTML file.
@@ -18,6 +18,10 @@ These variables are optional. Set them to true to activate features:
 
 These HTML classes are optional for each question, and enable special effects:
      .effect-dissolve   --  Dissolves FG image into a different BG image on answer
+     .effect-sound      --  Allows sound effects to play before and/or after answer
+     .effect-zoom-out   --  Zooms out from an blown-up image on answer (most common)
+     .effect-zoom-in    --  Zooms into an image on answer
+     .effect-dissolve   --  Dissolves FG image into a different BG image on answer
      .transition-scroll --  Scroll FG from one x,y position to another on answer
      .transition-bg     --  Adds BG image (name in form 00b-fade.jpg). Use with transparent FG img.
 
@@ -25,6 +29,10 @@ These HTML classes are optional for each question, and enable special effects:
 
 CHANGELOG
 
+
+2014-01-25-- v0.3a
+* Added support for zooming effects in CSS3 browsers ("effect-zoom-in, effect-zoom-out" classes).
+* Commented some old code from effect-dissolve which I forgot to remove when I added support for multiple dissolves.
 
 2014-01-13-- v0.3
 Major new features:
@@ -34,6 +42,7 @@ Major new features:
 * Added support for quiz "cover" and play button.
   + This is necessary to keep sounds from playing immediately in office environments, etc.
   + Old quizzes without cover/play button will continue to work just fine.
+* Revamped effect-dissolve to allow multiple images to dissolve in succession. Now also works on judgment screen.
 * Revamped CSS code to use Roboto font and to create consistent, better-looking buttons.
 Tweaks:
 * Reader adds "no-touch" class on non-mobile platforms. (This helps hide :hover classes from mobile)
@@ -43,7 +52,7 @@ Tweaks:
 
 2013-12-09-- v0.2h
 * Added new media queries to CSS for mobile/iOS template.
-* Slightly changed handling of answered questions in quizReader.js so that I can hide answer buttons on iOS once a questions has been answered.
+* Slightly changed handling of answered questions in quizReader.js so that I can hide answer buttons on iOS once a question has been answered.
 
 
 2013-11-11-- v0.2g

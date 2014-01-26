@@ -2,19 +2,10 @@
 // ==  
 // ==  TO DO LIST
 // ==  
-// ==  * Add support for multiple images in effect-dissolve
-// ==    - This would involve adding the images as extra photos instead of background images.
-// ==    - May not be necessary, but would help the Oscars quiz.
-// ==  
-// ==  * Fix background-images on mobile
-// ==    - Allow it to take pixel offsets or percentages?
-// ==    - Make it work on question load and on user answer, similar to sound effects. 
-// ==  
-// ==  * Fix sound support on scoring screen. The sounds don't play.
-// ==  
 // ==  * Beef up effect-scroll.
 // ==    - Allow it to take pixel offsets or percentages?
 // ==    - Make it work on question load and on user answer, similar to sound effects. 
+// ==    - Use CSS3 transforms instead of jquery math
 // ==  
 // ==  * Refactor references to userChoice.
 // ==    - Instead of passing a number, pass the actual jQuery object for the AnswerLine
@@ -43,6 +34,17 @@ var hasAudio = checkAudio();
 if ( !('ontouchstart' in document.documentElement) ) {
 	document.documentElement.className += ' no-touch';
 }
+
+
+// A callback function for effect-dissolve. 
+// Loops backward through multiple images dissolving each until it gets to the 1st.
+var dissolve = function() {
+	if ( jQuery(this).index() !== 1 ) {
+		jQuery(this).prev().fadeOut(2000, dissolve);
+	}
+};
+
+
 
 // jQUERY READY HANDLER
 // The script must be enclosed entirely within this handler because
@@ -84,15 +86,16 @@ jQuery(document).ready(function($) {
 			var $thisQuestion = $('#question' + i);
 			imageNum = i;
 			if (i<10) { imageNum = '0'+imageNum; }
-			// Effect-dissolve adds a background image when the quiz loads.
-			// After each question, the foreground image fades out, revealing the background.
-			// The quiz creator can specify the background image in quizMaker
+			// Effect-dissolve allows several images to fade into one another after question is answered.
 			if ( checkDissolve( $thisQuestion ) ) {
+				// this stuff is no longer necessary. Script now supports multiple <img> elements
+				// instead of one background-image property.
+				/*
 				var theUrl = $thisQuestion.children('.photos').attr('data');
 				$thisQuestion.children('.photos').css('background-image', 'url(' + theUrl + ')');
 				$thisQuestion.children('.photos').css('background-position', '0px 4px');
 				$thisQuestion.children('.photos').css('background-repeat', 'no-repeat');
-
+				*/
 				// the lower opacity with MultiPhoto questions doesn't work well with a background image
 				if ( $thisQuestion.hasClass('multiphoto') ) {
 					$thisQuestion.find('.multiphoto .photos img').css({ opacity: 1 });
@@ -154,6 +157,15 @@ jQuery(document).ready(function($) {
 	// NEW - not yet implemented in quizMaker
 	function checkSound($thisQuestion) {
 		return $thisQuestion.hasClass('effect-sound');
+	}
+
+	// NEW - not yet implemented in quizMaker
+	function checkZoomIn($thisQuestion) {
+		return $thisQuestion.hasClass('effect-zoom-in');
+	}
+	// NEW - not yet implemented in quizMaker
+	function checkZoomOut($thisQuestion) {
+		return $thisQuestion.hasClass('effect-zoom-out');
 	}
 
 	// implemented in quizMaker
@@ -375,7 +387,17 @@ jQuery(document).ready(function($) {
 
 		// does this question need a Dissolve effect?
 		if (checkDissolve($thisQuestion) ) {
-			$thePhoto.fadeOut();
+			$thisQuestion.find('.photos .layer:last-child').fadeOut(2000, dissolve);
+		}
+
+		// does this question need a Zoom In effect?
+		if (checkZoomIn($thisQuestion) ) {
+			$thisQuestion.find('.photos .layer:first-child').addClass("zoomIn");
+		}
+
+		// does this question need a Zoom Out effect?
+		if (checkZoomOut($thisQuestion) ) {
+			$thisQuestion.find('.photos .layer:first-child').addClass("zoomOut");
 		}
 
 		// does this question need a Scroll transition?
@@ -406,7 +428,6 @@ jQuery(document).ready(function($) {
 			else {
 				var yOffset = parseInt( yScrollTo );
 			}
-
 
 			$thePhoto.animate({
 				left: xOffset,
@@ -476,11 +497,24 @@ jQuery(document).ready(function($) {
 	// CREATE THE "SEE YOUR SCORE" BUTTON
 
 	function judgment(userChoice) {
+		var $thisQuestion = $('#question' + quesNum);
 		$('<div id="continueButton">SEE YOUR SCORE <span class="arrow">&rarr;</span></div>').appendTo('#quiz');
 		$('#continueButton').click( function(){ 
 			$('#continueButton').unbind().remove();
+			// If there's an "after" sound effect playing, we need to stop it.
+			if ( checkSound( $thisQuestion ) && hasAudio ) {
+				// is there an "after" sound?
+				var $afterSound = $thisQuestion.find('.sounds audio.after');
+				if ( $afterSound.length ) {
+					// The jQuery wrapper doesn't know about sound functions. 
+					// We have to invoke on the native dom element. get(0) grabs that.
+					// Also, there's no stop() function. Instead, we pause and reset the counter.
+					$afterSound.get(0).pause();
+//					$afterSound.get(0).currentTime = 0;
+				}
+			} 
 			cleanUpSlide(userChoice);
-			$('#question' + quesNum).hide();
+			$thisQuestion.hide();
 			scoringScreen();
 		});
 	}
@@ -505,6 +539,7 @@ jQuery(document).ready(function($) {
 	// GENERATE THE SCORING SCREEN
 
 	function scoringScreen() {
+		$scoring = $('#scoring');
 		var encQuizUrl = encodeURIComponent(quizUrl);
 		var encQuizTitle = encodeURIComponent(quizTitle);
 
@@ -515,14 +550,29 @@ jQuery(document).ready(function($) {
 		$('<div id="score">' + score + ' out of ' + totalQues + '</div>').insertBefore('#response');
 		$('<div class="quizShare">' + fbShare + twShare + '</div>').insertBefore('#response');
 
-		if ( checkSound( $('#scoring')  ) && hasAudio ) {
+		// does this question need a Dissolve effect?
+		if (checkDissolve( $scoring ) ) {
+			$scoring.find('.photos .layer:last-child').fadeOut(2000, dissolve);
+		}
+
+		if ( checkSound( $scoring ) && hasAudio ) {
 			// is there a "before" sound?
-			if ( $('#scoring').find('.sounds .before').length ) {
+			if ( $scoring.find('.sounds .before').length ) {
 				// The jQuery wrapper doesn't know about play(). We have to invoke
 				// on the native dom element. get(0) grabs that native element.
-				$('#scoring').find('.sounds .before').get(0).play();
+				$scoring.find('.sounds .before').get(0).play();
 			}
 		} 
+
+		// does this question need a Zoom In effect?
+		if (checkZoomIn( $scoring ) ) {
+			$thisQuestion.find('.photos .layer').addClass("zoomIn");
+		}
+
+		// does this question need a Zoom Out effect?
+		if (checkZoomOut( $scoring ) ) {
+			$thisQuestion.find('.photos .layer').addClass("zoomOut");
+		}
 
 		for (x=0; x<scoringRangeSize; x++) {
 			// this line is for debugging
