@@ -1,5 +1,11 @@
 // ===========================================================================
 // ==  
+// ==  RECENTLY DONE
+// ==  
+// ==  * Fixed Dissolve effect when used with multiphoto questions. There's one in Space Quiz.
+// ==	 - My fix is backward-compatible. Need to update quizMaker to put multiphotos into a div.layer
+// ==  
+// ==  
 // ==  TO DO LIST
 // ==  
 // ==  * Beef up effect-scroll.
@@ -36,7 +42,7 @@ if ( !('ontouchstart' in document.documentElement) ) {
 }
 
 
-// A callback function for effect-dissolve. 
+// A callback function for effect-dissolve.
 // Loops backward through multiple images dissolving each until it gets to the 1st.
 var dissolve = function() {
 	if ( jQuery(this).index() !== 1 ) {
@@ -105,7 +111,7 @@ jQuery(document).ready(function($) {
 			// Effect-sound allows for sounds to be played "before" and/or "after" a question.
 			if ( checkSound( $thisQuestion ) ) {
 				$thisQuestion.children('.sounds').hide();
-				// check for <audio> support. 
+				// check for <audio> support.
 				if ( !hasAudio ) {
 					$('.cover p').html('It looks like your browser doesn\'t support the sound effects used in this quiz. Please consider <a target="_blank" href="http://browsehappy.com/">upgrading your browser</a>.');
 				}
@@ -113,7 +119,7 @@ jQuery(document).ready(function($) {
 				}
 			}
 
-			// The following Effects still are not implemented in quizMaker. 
+			// The following Effects still are not implemented in quizMaker.
 			// Have to be added manually to a quiz.
 
 			// Transition-scroll allows a foreground image to be positioned then
@@ -123,8 +129,8 @@ jQuery(document).ready(function($) {
 				$thePhoto = $thisQuestion.find('.photos img');
 
 				// grab any offsets specified in HTML
-				var xScrollFrom = $('#question' + i).attr('xScrollFrom');
-				var yScrollFrom = $('#question' + i).attr('yScrollFrom');
+				var xScrollFrom = $thisQuestion.attr('xScrollFrom');
+				var yScrollFrom = $thisQuestion.attr('yScrollFrom');
 
 				if (typeof xScrollFrom !== "undefined") {
 					var xStart = parseInt( xScrollFrom );
@@ -176,7 +182,7 @@ jQuery(document).ready(function($) {
 	// legacy
 	function checkScroll($thisQuestion) {
 		return $thisQuestion.hasClass('transition-scroll');
-	} 
+	}
 
 	function checkBg($thisQuestion) {
 		return $thisQuestion.hasClass('transition-bg');
@@ -229,42 +235,42 @@ jQuery(document).ready(function($) {
 
 	function multiPhotoHover() {
 		$('#ques' + quesNum + 'pho0').hover(
-			function(){ 
-				$('#ques' + quesNum + 'ans0').parent().addClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'ans0').parent().addClass('hover');
 				$(this).addClass('hover');
 			},
-			function(){ 
-				$('#ques' + quesNum + 'ans0').parent().removeClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'ans0').parent().removeClass('hover');
 				$(this).removeClass('hover');
 			}
 		);
 		$('#ques' + quesNum + 'pho1').hover(
-			function(){ 
-				$('#ques' + quesNum + 'ans1').parent().addClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'ans1').parent().addClass('hover');
 				$(this).addClass('hover');
 			},
-			function(){ 
-				$('#ques' + quesNum + 'ans1').parent().removeClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'ans1').parent().removeClass('hover');
 				$(this).removeClass('hover');
 			}
 		);
 		$('#ques' + quesNum + 'pho2').hover(
-			function(){ 
-				$('#ques' + quesNum + 'ans2').parent().addClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'ans2').parent().addClass('hover');
 				$(this).addClass('hover');
 			},
-			function(){ 
-				$('#ques' + quesNum + 'ans2').parent().removeClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'ans2').parent().removeClass('hover');
 				$(this).removeClass('hover');
 			}
 		);
 		$('#ques' + quesNum + 'pho3').hover(
-			function(){ 
-				$('#ques' + quesNum + 'ans3').parent().addClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'ans3').parent().addClass('hover');
 				$(this).addClass('hover');
 			},
-			function(){ 
-				$('#ques' + quesNum + 'ans3').parent().removeClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'ans3').parent().removeClass('hover');
 				$(this).removeClass('hover');
 			}
 		);
@@ -272,42 +278,42 @@ jQuery(document).ready(function($) {
 
 
 		$('#ques' + quesNum + 'ans0').parent().hover(
-			function(){ 
-				$('#ques' + quesNum + 'pho0').addClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'pho0').addClass('hover');
 				$(this).addClass('hover');
 			},
-			function(){ 
-				$('#ques' + quesNum + 'pho0').removeClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'pho0').removeClass('hover');
 				$(this).removeClass('hover');
 			}
 		);
 		$('#ques' + quesNum + 'ans1').parent().hover(
-			function(){ 
-				$('#ques' + quesNum + 'pho1').addClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'pho1').addClass('hover');
 				$(this).addClass('hover');
 			},
-			function(){ 
-				$('#ques' + quesNum + 'pho1').removeClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'pho1').removeClass('hover');
 				$(this).removeClass('hover');
 			}
 		);
 		$('#ques' + quesNum + 'ans2').parent().hover(
-			function(){ 
-				$('#ques' + quesNum + 'pho2').addClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'pho2').addClass('hover');
 				$(this).addClass('hover');
 			},
-			function(){ 
-				$('#ques' + quesNum + 'pho2').removeClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'pho2').removeClass('hover');
 				$(this).removeClass('hover');
 			}
 		);
 		$('#ques' + quesNum + 'ans3').parent().hover(
-			function(){ 
-				$('#ques' + quesNum + 'pho3').addClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'pho3').addClass('hover');
 				$(this).addClass('hover');
 			},
-			function(){ 
-				$('#ques' + quesNum + 'pho3').removeClass('hover'); 
+			function(){
+				$('#ques' + quesNum + 'pho3').removeClass('hover');
 				$(this).removeClass('hover');
 			}
 		);
@@ -339,35 +345,41 @@ jQuery(document).ready(function($) {
 	// MULTIPLE PHOTOS CLICK HANDLERS
 
 	function multiPhotoClick() {
-		$('.answerLine').click( function(){ 
+		$('.answerLine').click( function(){
 			$('img').unbind();
 			$('.answerLine').unbind();
-			$('#question' + quesNum + ' .photos img.wrong').css('opacity','0.3').removeClass('hover');
-			$('#question' + quesNum + ' .photos img.correct').addClass('highlight');
+			// only do this if there's NOT a dissolve effect
+			if ( !checkDissolve( $('#question' + quesNum) ) ) {
+				$('#question' + quesNum + ' .photos img.wrong').css('opacity','0.3').removeClass('hover');
+				$('#question' + quesNum + ' .photos img.correct').addClass('highlight');
+			}
 			var userChoice = $(this).children('input').attr('id').slice(-1);
 			answerAndScore(userChoice);
 		});
 
-		$('.photos img').click( function(){ 
+		$('.photos img').click( function(){
 			$('img').unbind();
 			$('.answerLine').unbind();
-			$('#question' + quesNum + ' .photos img.wrong').css('opacity','0.3').removeClass('hover');
-			$('#question' + quesNum + ' .photos img.correct').addClass('highlight');
+			// only do this if there's NOT a dissolve effect
+			if ( !checkDissolve( $('#question' + quesNum) ) ) {
+				$('#question' + quesNum + ' .photos img.wrong').css('opacity','0.3').removeClass('hover');
+				$('#question' + quesNum + ' .photos img.correct').addClass('highlight');
+			}
 			var userChoice = $(this).attr('id').slice(-1);
 			answerAndScore(userChoice);
 		});
-	}	
+	}
 
 
 	// MULTIPLE-CHOICE / TRUE-FALSE HOVER HANDLER
 
 	function multiChoiceClick() {
-		$('.answerLine').click( function(){ 
+		$('.answerLine').click( function(){
 			$('.answerLine').unbind();
 			var userChoice = $(this).children('input').attr('id').slice(-1);
 			answerAndScore(userChoice);
 		});
-	}	
+	}
 
 
 
@@ -463,8 +475,8 @@ jQuery(document).ready(function($) {
 		else {
 			continueButton(userChoice);
 		}
-		
-	}	
+
+	}
 
 
 	// CREATE THE CONTINUE BUTTON
@@ -506,13 +518,13 @@ jQuery(document).ready(function($) {
 				// is there an "after" sound?
 				var $afterSound = $thisQuestion.find('.sounds audio.after');
 				if ( $afterSound.length ) {
-					// The jQuery wrapper doesn't know about sound functions. 
+					// The jQuery wrapper doesn't know about sound functions.
 					// We have to invoke on the native dom element. get(0) grabs that.
 					// Also, there's no stop() function. Instead, we pause and reset the counter.
 					$afterSound.get(0).pause();
 //					$afterSound.get(0).currentTime = 0;
 				}
-			} 
+			}
 			cleanUpSlide(userChoice);
 			$thisQuestion.hide();
 			scoringScreen();
@@ -562,7 +574,7 @@ jQuery(document).ready(function($) {
 				// on the native dom element. get(0) grabs that native element.
 				$scoring.find('.sounds .before').get(0).play();
 			}
-		} 
+		}
 
 		// does this question need a Zoom In effect?
 		if (checkZoomIn( $scoring ) ) {
@@ -593,8 +605,7 @@ jQuery(document).ready(function($) {
 	// CREATE THE "PLAY AGAIN" BUTTON
 
 	function playAgain() {
-		$('<div id="continueButton">PLAY AGAIN <span class="arrow">&rarr;</span></div>').appendTo('#scoring');
-		$('#continueButton').css('position','relative').css('top','0px').css('left','0px');
+		$('<div id="continueButton" class="playAgainButton">PLAY AGAIN <span class="arrow">&rarr;</span></div>').appendTo('#scoring');
 		$('#continueButton').click( function(){ 
 			$('#continueButton').unbind().remove();
 			$('#score').remove();
@@ -615,7 +626,14 @@ jQuery(document).ready(function($) {
 	// Randomize the photos/answers
 
 	function randomizeMultiPhoto() {
-		var elemsPhotos = $('#question' + quesNum + ' .photos').children('img').get();
+		var layers = '';
+		// Check if this question has a dissolve effect.
+		// If so, then only randomize photos within a .layers div
+		// If there's no dissolve, then the only photos are answer photos, so randomize them all
+		if ( checkDissolve( $('#question' + quesNum) ) ) {
+			layers = ' div.layer ';
+		}
+		var elemsPhotos = $('#question' + quesNum + ' .photos' + layers).children('img').get();
 		var elemsQuests = $('#question' + quesNum + ' .answers').children('.answerLine').get();
 		var n = elemsQuests.length;
 		var randomIndexes = [];
@@ -624,11 +642,11 @@ jQuery(document).ready(function($) {
 		}
 		randomIndexes.sort(function() { return (Math.round(Math.random())-0.5); });
 
-		$('#question' + quesNum + ' .photos').remove('img');
+		$('#question' + quesNum + ' .photos' + layers).remove('img');
 		$('#question' + quesNum + ' .answers').remove('.answerLine');
 		for (i=0; i < n; i++) {
-			$('#question' + quesNum + ' .photos').append(elemsPhotos[randomIndexes[i]]);      
-			$('#question' + quesNum + ' .answers').append(elemsQuests[randomIndexes[i]]);      
+			$('#question' + quesNum + ' .photos' + layers).append(elemsPhotos[randomIndexes[i]]);
+			$('#question' + quesNum + ' .answers').append(elemsQuests[randomIndexes[i]]);
 		}
 	}
 
@@ -637,7 +655,7 @@ jQuery(document).ready(function($) {
 		elemsQuests.sort(function() { return (Math.round(Math.random())-0.5); });
 		$('#question' + quesNum + ' .answers').remove('.answerLine');
 		for (i=0; i < elemsQuests.length; i++) {
-			$('#question' + quesNum + ' .answers').append(elemsQuests[i]);      
+			$('#question' + quesNum + ' .answers').append(elemsQuests[i]);
 		}
 	}
 

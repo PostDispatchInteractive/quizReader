@@ -30,6 +30,11 @@ These HTML classes are optional for each question, and enable special effects:
 CHANGELOG
 
 
+2015-12-03-- v0.3b
+* Added support for effect-dissolve with multiPhotos to quizReader.
+  + This fix is backwards-compatible with multiPhotos that are NOT inside a div.layer. 
+  + Need to update quizMaker to output multiPhotos inside of a div.layer by default.
+
 2014-01-25-- v0.3a
 * Added support for zooming effects in CSS3 browsers ("effect-zoom-in, effect-zoom-out" classes).
 * Commented some old code from effect-dissolve which I forgot to remove when I added support for multiple dissolves.
