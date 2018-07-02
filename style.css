@@ -27,7 +27,7 @@
 	font-weight: bold;
 	color: #333;
 	background-color: #eee;
-	background-image: url(//images.stltoday.com/mds/00003409/content/spinner.gif);
+	background-image: url(//stltoday-images.global.ssl.fastly.net/mds/00003409/content/spinner.gif);
 	background-position: center center;
 	background-repeat: no-repeat;
 	z-index: 90;
@@ -307,13 +307,13 @@
 
 /* basic styles */
 #quiz .questions .photos  {
+	position: relative;
 	margin: 0px;
 	padding: 0px;
 	width: 100%;
 	max-width: 600px;
 	z-index: auto;
     padding-bottom: 59.66666666666667%; /* aspect ratio for 600px x 358px */
-
 
 	/* this is important to allow scrolling transitions on answer */
 	overflow: hidden;
@@ -471,6 +471,9 @@
 }
 
 #quiz .multichoice.transition-scroll .photos img, #quiz .truefalse.transition-scroll .photos img {
+	position: absolute;
+	top: 0;
+	left: 0;
 	padding: 4px 0px;
 	border: none;
 }
@@ -546,6 +549,8 @@
 
 
 #quiz #scoring .photos img {
+	position: absolute;
+	width: 100%;
 	margin: 0px;
 	padding: 0px;
 	border-top: 4px solid white;
