@@ -113,7 +113,7 @@ jQuery(document).ready(function($) {
 				$thisQuestion.children('.sounds').hide();
 				// check for <audio> support.
 				if ( !hasAudio ) {
-					$('.cover p').html('It looks like your browser doesn\'t support the sound effects used in this quiz. Please consider <a target="_blank" href="http://browsehappy.com/">upgrading your browser</a>.');
+					$('.cover p').html('It looks like your browser doesn\'t support the sound effects used in this quiz. Please consider <a target="_blank" href="//browsehappy.com/">upgrading your browser</a>.');
 				}
 				else {
 				}
@@ -155,6 +155,7 @@ jQuery(document).ready(function($) {
 				$thisQuestion.children('.photos').css('background-image', 'url(' + theUrl + ')');
 				$thisQuestion.children('.photos').css('background-position', '0px 4px');
 				$thisQuestion.children('.photos').css('background-repeat', 'no-repeat');
+				$thisQuestion.children('.photos').css('background-size', 'contain');
 				$thisQuestion.hide();
 			}
 		}
@@ -388,6 +389,7 @@ jQuery(document).ready(function($) {
 	function answerAndScore(userChoice) {
 		var $thisQuestion = $('#question' + quesNum);
 		$thisQuestion.addClass('answered');
+		$thePhotoContainer = $thisQuestion.find('.photos');
 		$thePhoto = $thisQuestion.find('.photos img');
 		$('input#ques' + quesNum + 'ans' + userChoice).parent().removeClass('hover');
 		$('input#ques' + quesNum + 'ans' + userChoice).parent().addClass('userAnswer');
@@ -421,20 +423,22 @@ jQuery(document).ready(function($) {
 			var xScrollTo = $thisQuestion.attr('xScrollTo');
 			var yScrollTo = $thisQuestion.attr('yScrollTo');
 
-			// if for some reason there's no ScrollTo defined in HTML then fall back
-			// to finding dif between this image's height and normal width (600).
+			// if for some reason there's no xScrollTo defined in HTML then fall back
+			// to finding dif between this image's width and the container's width 
+			// (container is usually 600, but can be smaller due to responsive resizes).
 			if (typeof xScrollTo === "undefined") {
-				var xOffset = (theWidth - 600) * -1;
+				var xOffset = (theWidth - $thePhotoContainer.width() ) * -1;
 			}
 			// otherwise, use the offset specified in HTML
 			else {
 				var xOffset = parseInt( xScrollTo );
 			}
 
-			// if for some reason there's no ScrollTo defined in HTML then fall back
-			// to finding dif between this image's height and normal height (350+8).
+			// if for some reason there's no yScrollTo defined in HTML then fall back
+			// to finding dif between this image's height and the container's height
+			// (container is usually 350+8, but can be smaller due to responsive resizes).
 			if (typeof yScrollTo === "undefined") {
-				var yOffset = (theHeight - 358) * -1;
+				var yOffset = (theHeight - $thePhotoContainer.height() ) * -1;
 			}
 			// otherwise, use the offset specified in HTML
 			else {
