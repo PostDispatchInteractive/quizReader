@@ -672,82 +672,50 @@
 
 @media only screen and (max-device-width: 480px)  {
 	#quiz {
-		width: 295px;
 	}
 	#quiz .spinningWheel {
-		width: 295px;
 	}
 	#quiz .questions, #quiz .cover {
-		width: 295px;
 	}
 	#quiz .question, #quiz .cover p {
-		margin-top: 1em;
-		width: 100%;
-		height: auto;
-		position: relative;
-		font-size: 0.75em; /* 12px */
-		line-height: 1em; /* 16px */
-		top: 0px;
+		font-size: 0.875em; /* 14px */
+		line-height: 1.428571428571429em; /* 20px */
 	}
 
 	#quiz .questions .photos, #quiz #scoring .photos  {
-		width: 295px;
-		height: 176px;
-		position: relative;
-		overflow: hidden;
 	}
 
 	#quiz .cover img {
-		width: 100%;
-		height: auto;
 	}
 
 	#quiz .questions .photos img, #quiz #scoring .photos img {
-		width: 100%;
-		height: 100%;
 	}
 
 	#quiz .multiphoto.effect-dissolve .photos > img {
-		width: 100%;
-		height: auto;
 	}
 
 	#quiz .multiphoto.effect-dissolve .photos .layer img {
-		width: 25%;
-		height: auto;
 	}
 
 	#quiz .multiphoto:not(.effect-dissolve) .photos img {
-		width: 25%;
-		height: auto;
 	}
 
 	#quiz .answers {
 		margin-top: 1em;
 		position: relative;
 		top: 0px;
-		width: 295px;
 	}
 
 	#quiz .answered .question, #quiz .answered .answers {
 		display: none;
 	}
 
+
 	#quiz .response {
-		position: relative;
-		top: 0px;
-		left: 0px;
-		width: 295px;
-		height: auto;
-		font-size: 0.75em; /* 12px */
-		line-height: 1em; /* 16px */
-		margin-top: 1em;
 	}
 
 
 	#quiz #playButton {
-		position: relative;
-		top: 250px;
 	} 
 
 	#quiz #continueButton {
@@ -765,8 +733,6 @@
 	}
 
 	#quiz #response, #quiz #response p {
-		font-size: 0.75em; /* 12px */
-		line-height: 1.125em; /* 18px */
 	}
 
 	.quizShare div {
