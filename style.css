@@ -313,7 +313,9 @@
 	width: 100%;
 	max-width: 600px;
 	z-index: auto;
+	/* Lock the photo div to a specific aspect ratio */
     padding-bottom: 59.66666666666667%; /* aspect ratio for 600px x 358px */
+    height: 0;
 
 	/* this is important to allow scrolling transitions on answer */
 	overflow: hidden;
@@ -532,7 +534,9 @@
 #quiz #scoring .photos  {
 	position: relative;
 	width: 100%;
-	padding-bottom: 59.66666666666667%; /* aspect ratio for 600px x 358px */
+	/* Lock the photo div to a specific aspect ratio */
+    padding-bottom: 59.66666666666667%; /* aspect ratio for 600px x 358px */
+    height: 0;
 
 	/* this is important to allow scrolling transitions on answer */
 	overflow: hidden;
